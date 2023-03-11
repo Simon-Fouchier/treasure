@@ -1,14 +1,22 @@
-import { MapTileFactory } from '../constants/game.constants'
-
+import { type MapTileFactory } from '../utils/map.utils'
+import { type mouvementEnum, type singleMoveEnum } from '../utils/player.utils'
 
 export type MapTilesType = keyof typeof MapTileFactory
 
 export interface GameMap {
   maxY: Readonly<number>
   maxX: Readonly<number>
-  tiles: Map<Position, MapTilesType>
-  players: Map<Name, { position: Position, sequence: MoveSequence, orientation: Orientation }>
-  treasures: Map<Position, number>
+  tiles: Map<string, MapTilesType>
+  players: Map<Name, Player>
+  playerOrder: Name[]
+  treasures: Map<string, number>
+}
+
+export interface Player {
+  position: Position
+  sequence: MoveSequence
+  orientation: Orientation
+  treasures: number
 }
 
 declare const validSequence: unique symbol
@@ -18,8 +26,10 @@ export type MoveSequence = string & {
   [validSequence]: true
 }
 
-export type Orientation = 'S' | 'N' | 'O' | 'E'
 export type Position = [x: number, y: number]
 export type Name = string & {
   [validName]: true
 }
+
+export type Orientation = keyof typeof mouvementEnum
+export type SingleMove = keyof typeof singleMoveEnum

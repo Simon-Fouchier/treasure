@@ -1,5 +1,5 @@
-import { type MapTilesType, type MoveSequence, type Name, type Orientation} from '../interface/game.interface'
-import { MapTileFactory, POSSIBLES_TILES } from '../constants/game.constants'
+import { type MapTilesType, type MoveSequence, type Name, type Orientation } from '../interface/game.interface'
+import { MapTileFactory, POSSIBLES_TILES } from '../utils/map.utils'
 
 interface IMapValidator {
   assertValidSequence: (input: string | undefined) => asserts input is MoveSequence
@@ -10,20 +10,20 @@ interface IMapValidator {
 }
 
 const assertValidSequence: (input: string | undefined) => asserts input is MoveSequence = (input) => {
-  if (input !== undefined && !/^[A|D|G]*$/.test(input)) {
+  if (input !== undefined && !/^[ADG]*$/.test(input)) {
     throw new Error(`The sequence: ${input} is not a valid move sequence. Authorized keys : [A,D,G]`)
   }
 }
 
 const assertValidName: (input: string | undefined) => asserts input is Name = (input) => {
-  if (input !== undefined && /^[a-z ,.']+$/.test(input)) {
+  if (input !== undefined && !/^[a-zA-Z ]+$/.test(input)) {
     throw new Error(`The name: ${input} is not a valid name: Character '-' is forbidden`)
   }
 }
 
 const assertValidOrientation: (input: string | undefined) => asserts input is Orientation = (input) => {
-  if (input !== undefined && !/^[S|N|O|E]$/.test(input)) {
-    throw new Error(`The name: ${input} is not a valid name: Character '-' is forbidden`)
+  if (input !== undefined && !/^[SNOE]$/.test(input)) {
+    throw new Error(`Orientation: ${input} is not a valid orientation: Authorized keys : [S,N,O,E]`)
   }
 }
 
