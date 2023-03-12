@@ -31,3 +31,5 @@ node_modules/
 out/
 *.js
 .iml
+
+coverage
