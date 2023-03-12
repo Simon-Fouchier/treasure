@@ -9,7 +9,7 @@ function parseFileNumber (input: string | undefined, minInt = 0) {
 
   const number = parseInt(input, 10)
   if (isNaN(number) || number < minInt) {
-    throw new Error('Input must be a positive number')
+    throw new Error(`Input must be a positive number greater or equal than ${minInt}`)
   }
 
   return number

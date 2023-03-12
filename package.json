@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "server.ts",
+  "main": "main.ts",
   "scripts": {
     "lint-dev": "eslint --ext .ts *.ts",
-    "start": "node  --es-module-specifier-resolution=node --loader ts-node/esm server.ts",
+    "start": "node  --es-module-specifier-resolution=node --loader ts-node/esm main.ts",
     "test": "jest"
   },
   "keywords": [],

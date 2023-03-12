@@ -4,11 +4,10 @@ import { GameLoop } from './src/gameloop'
 
 const args = process.argv.slice(2)
 
-mapParser.parse('./maps/map-1.txt')
+mapParser.parse(args[0])
   .then((map) => {
-    console.debug(map)
     GameLoop.start(map)
-    mapParser.write('./results/map-1.txt', map)
+    mapParser.write(args[0], map)
       .catch(console.error)
   })
   .catch((e) => {

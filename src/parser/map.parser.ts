@@ -40,31 +40,39 @@ async function parse (path: string) {
   return map
 }
 
-async function write (path: string, map: GameMap) {
-  const paths = path.split('.')
-  paths[paths.length - 2] = `${paths.at(-2) ?? ''}-result`
+function getResultPath (path: string, defaultResultPath: string) {
+  const directories = path.split('/')
+  const filename = directories.pop() ?? ''
+  const resultFileName = filename.split('.')
+  resultFileName[0] = `${resultFileName[0] ?? ''}-result`
+  return `${defaultResultPath}/${resultFileName.join('.')}`
+}
+
+async function write (path: string, map: GameMap, defaultResultPath = './results') {
+  const resultPath = getResultPath(path, defaultResultPath)
   const processContent = () => {
     let content: string = ''
-    content += `C - ${map.maxX} - ${map.maxY} \n`
+    content += `C - ${map.maxX} - ${map.maxY}\n`
 
     map.tiles.forEach((value, key) => {
       const [x, y] = positionUtils.keyToPosition(key)
-      content += `${value} - ${x} - ${y} \n`
+      content += `${value} - ${x} - ${y}\n`
     })
 
     map.treasures.forEach((value, key) => {
       const [x, y] = positionUtils.keyToPosition(key)
-      content += `T - ${x} - ${y} - ${value} \n`
+      content += `T - ${x} - ${y} - ${value}\n`
     })
 
     map.players.forEach((player, name) => {
       const [x, y] = player.position
-      content += `A - ${name} - ${x} - ${y} - ${player.orientation} - ${player.treasures} \n`
+      content += `A - ${name} - ${x} - ${y} - ${player.orientation} - ${player.treasures}\n`
     })
 
     return content
   }
-  await fs.writeFile(paths.join('.'), processContent())
+  await fs.writeFile(resultPath, processContent())
+  console.log(`Result generated at : ${resultPath}`)
 }
 
 export const mapParser = Object.freeze({
