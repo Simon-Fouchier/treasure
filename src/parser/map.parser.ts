@@ -9,10 +9,10 @@ async function parse (path: string) {
   const bufferedFile = await fs.readFile(path, { encoding: 'utf8' })
 
   const lines = bufferedFile.split('\n')
-  if (lines.at(-1) === '') {
-    lines.pop()
-  }
+    // Remove comments and empty lines
+    .filter(line => !line.startsWith('#') && line.trim() !== '')
 
+  // Manage the first letter C which is mandatory to be first
   const mapLine = lines.at(0) ?? ''
   const firstLineSplitted = parseUtils.splitFileLine(mapLine)
   const firstTile = firstLineSplitted.at(0)
