@@ -3,7 +3,7 @@ import { positionUtils } from './position.utils'
 
 function isInvalidPosition (maxX: number, maxY: number, position: Position) {
   const [x, y] = position
-  return x >= maxY || x >= maxX || y < 0 || y < 0
+  return y >= maxY || x >= maxX || y < 0 || x < 0
 }
 
 function isTileMountain (map: GameMap, position: Position) {

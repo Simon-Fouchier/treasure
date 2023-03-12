@@ -53,8 +53,10 @@ function draw (map: GameMap) {
   })
 
   for (let y = 0; y < map.maxY; y++) {
-    console.log(array[y].join(' '))
+    console.debug(array[y].join(' '))
   }
+
+  console.debug('\n-----------------------------------------------------------\n')
 }
 
 export const GameLoop = Object.freeze({

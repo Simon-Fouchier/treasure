@@ -44,7 +44,7 @@ function validateArgumentsTile (columns: string[]) {
   const mapTile = columns.at(0)
   assertValidMapTiles(mapTile)
   if (columns.length !== MapTileFactory[mapTile].arguments) {
-    throw new Error(`You must have ${MapTileFactory[mapTile].arguments} with tile ${mapTile}`)
+    throw new Error(`You must have ${MapTileFactory[mapTile].arguments} arguments with tile ${mapTile}`)
   }
 
   return mapTile

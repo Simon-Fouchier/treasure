@@ -10,6 +10,25 @@ import {
 import { gameUtils } from './game.utils'
 import { positionUtils } from './position.utils'
 
+const ORIENTATION_TRANSFORMATION_REFERENTIAL: Record<Orientation, Record<Exclude<SingleMove, 'A'>, Orientation>> = {
+  N: {
+    G: 'E',
+    D: 'O'
+  },
+  E: {
+    G: 'S',
+    D: 'N'
+  },
+  S: {
+    G: 'O',
+    D: 'E'
+  },
+  O: {
+    G: 'N',
+    D: 'S'
+  }
+} as const
+
 export const mouvementEnum = {
   N: {
     nextPosition: ([x, y]: Position): Position => {
@@ -64,7 +83,7 @@ function processMouvement (map: GameMap, playerName: Name, player: Player) {
 }
 function attempToRemovePlayerFromOrder (playerName: Name, map: GameMap) {
   const player = map.players.get(playerName)
-  if (player === undefined || player.sequence.length === 0) {
+  if (player === undefined || player.sequence?.length === 0) {
     // Remove the player from turn order if sequence is empty
     map.playerOrder.splice(map.playerOrder.indexOf(playerName), 1)
   }
@@ -79,25 +98,6 @@ function move (map: GameMap, player: Player, playerName: Name, move: SingleMove)
   }
   player.sequence = player.sequence.substring(1) as MoveSequence
 }
-
-const ORIENTATION_TRANSFORMATION_REFERENTIAL: Record<Orientation, Record<Exclude<SingleMove, 'A'>, Orientation>> = {
-  N: {
-    G: 'E',
-    D: 'O'
-  },
-  E: {
-    G: 'N',
-    D: 'S'
-  },
-  S: {
-    G: 'O',
-    D: 'E'
-  },
-  O: {
-    G: 'S',
-    D: 'N'
-  }
-} as const
 
 export const playerUtils = Object.freeze({
   move,
