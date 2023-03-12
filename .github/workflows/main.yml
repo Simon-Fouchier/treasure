@@ -27,3 +27,5 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
+      - name: Launching tests
+        run: pnpm test:coverage
